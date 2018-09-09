@@ -1,21 +1,32 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react'
+import './App.css'
+import NewTask from './components/NewTask'
+import List from './components/List'
 
-class App extends Component {
+export default class App extends Component {
+  constructor() {
+    super()
+
+    this.state = {
+      tasks: [],
+    }
+    this.handleEntry = this.handleEntry.bind(this)
+  }
+
+  handleEntry(userInput) {
+    const { tasks } = this.state
+    const copyArray = [...tasks, userInput]
+    this.setState({ tasks: copyArray })
+  }
+
   render() {
+    console.log(this.state)
     return (
       <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <h1>ToDo list 2</h1>
+        <NewTask newTask={this.handleEntry} />
+        <List tasks={this.state.tasks} />
       </div>
-    );
+    )
   }
 }
-
-export default App;
